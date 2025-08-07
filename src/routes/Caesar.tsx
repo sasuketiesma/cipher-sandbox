@@ -5,7 +5,7 @@ const Caesar = () => {
     const [ plaintext, setPlaintext ] = useState("Enter your message here!");
     const [ shift, setShift ] = useState("-3");
     const [ output, setOutput ] = useState("");
-    const [ ignoreCase, setIgnoreCase ] = useState(false);
+    const [ ignoreForeign, setIgnoreForeign ] = useState(false);
 
     let currentShift: number = Number(shift);
 
@@ -43,20 +43,21 @@ const Caesar = () => {
             return;
         }
 
-        const ciphertext =  encryptCaesar(plaintext, currentShift, true);
+        const ciphertext =  encryptCaesar(plaintext, currentShift, ignoreForeign);
         setOutput(ciphertext);
-    }, [ plaintext, shift, ignoreCase ]);
+    }, [ plaintext, shift, ignoreForeign ]);
 
     return (
         <div>
             <h1 className="font-bold text-2xl">Caesar Cipher</h1>
             <div className="bg-blue-300">
                 <div className="w-screen bg-blue-500 flex justify-center">
-                    <input className="border-2 m-4" value={shift} placeholder="shift" onChange={(event) => {modifyShift(event.target.value)}}></input>
+                    <input className="border-2 m-4" value={shift} placeholder="shift" onChange={(event) => {modifyShift(event.target.value)}}/>
                     <div className="m-4">
                         <label>
-                            <input className="border-2" type="checkbox" checked={ignoreCase} onChange={() => {setIgnoreCase(!ignoreCase)}}/>
-                            ignore case
+                            Ignore foreign characters
+                            <input className="border-2" type="checkbox" checked={ignoreForeign} onChange={() => {setIgnoreForeign(!ignoreForeign)}}/>
+                            
                         </label>
                     </div>
                 </div>
