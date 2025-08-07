@@ -51,13 +51,20 @@ const Caesar = () => {
         <div>
             <h1 className="font-bold text-2xl">Caesar Cipher</h1>
             <div className="bg-blue-300">
-                <div className="flex justify-center">
-                    <input className="border-2 m-6" value={plaintext} placeholder="plaintext" onChange={(event) => {setPlaintext(event.target.value)}}></input>
-                    <input className="border-2 m-6" value={shift} placeholder="shift" onChange={(event) => {modifyShift(event.target.value)}}></input>
+                <div className="w-screen bg-blue-500 flex justify-center">
+                    <input className="border-2 m-4" value={shift} placeholder="shift" onChange={(event) => {modifyShift(event.target.value)}}></input>
+                    <div className="m-4">
+                        <label>
+                            <input className="border-2" type="checkbox" checked={ignoreCase} onChange={() => {setIgnoreCase(!ignoreCase)}}/>
+                            ignore case
+                        </label>
+                    </div>
                 </div>
-                <p>ignore case: {String(ignoreCase)}</p>
-                <button onClick={() => {setIgnoreCase(!ignoreCase)}}>case</button>
-                <p className="p-5">{output}</p>
+                <div className="flex justify-center bg-blue-400">
+                    <textarea className="w-xl h-28 border-2 m-6 resize-none outline-none" value={plaintext} placeholder="plaintext" onFocus={(event) => {event.target.select()}} onChange={(event) => {setPlaintext(event.target.value)}}/>
+                    <p className="w-xl h-28 border-2 m-6">{output}</p>
+                </div>
+                
             </div>
         </div>
     );
