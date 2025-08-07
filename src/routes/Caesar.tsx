@@ -1,28 +1,64 @@
 import { useEffect, useState } from "react";
 import encryptCaesar from "../algorithms/caesar";
-import './Caesar.css';
 
 const Caesar = () => {
-    const [ plaintext, setPlaintext ] = useState("");
-    const [ shift, setShift ] = useState(0);
+    const [ plaintext, setPlaintext ] = useState("Enter your message here!");
+    const [ shift, setShift ] = useState("-3");
     const [ output, setOutput ] = useState("");
     const [ ignoreCase, setIgnoreCase ] = useState(false);
 
+    let currentShift: number = Number(shift);
+
+    const modifyShift = (value: string) => {
+        const allowedChars = "0123456789-";
+        const valueNum = Number(value);
+        let isValidString = true;
+        
+        for (let char of value) {
+            if (!allowedChars.includes(char)) {
+                isValidString = false;
+            }
+        }
+
+        if (value === "") {
+            setShift("");
+            return;
+        }
+
+        if (value === "-") {
+            setShift("-");
+            return;
+        }
+
+        if (!isValidString || Number.isNaN(valueNum)) {
+            return;
+        }
+
+        setShift(String(valueNum));
+        currentShift = valueNum;
+    }
+
     useEffect(() => {
-        const ciphertext =  encryptCaesar(plaintext, shift, true);
+        if (shift === "-" || shift === "") {
+            return;
+        }
+
+        const ciphertext =  encryptCaesar(plaintext, currentShift, true);
         setOutput(ciphertext);
-    }, [ plaintext, shift ]);
+    }, [ plaintext, shift, ignoreCase ]);
 
     return (
         <div>
-            <h1>Caesar Cipher</h1>
-            <input value={plaintext} placeholder="plaintext" onChange={(event) => {setPlaintext(event.target.value)}}></input>
-            <p>shift: {shift}</p>
-            <p>ignore case: {String(ignoreCase)}</p>
-            <button onClick={() => {setShift(shift + 1)}}>+</button>
-            <button onClick={() => {setShift(shift - 1)}}>-</button>
-            <button onClick={() => {setIgnoreCase(!ignoreCase)}} >case</button>
-            <p>{output}</p>
+            <h1 className="font-bold text-2xl">Caesar Cipher</h1>
+            <div className="bg-blue-300">
+                <div className="flex justify-center">
+                    <input className="border-2 m-6" value={plaintext} placeholder="plaintext" onChange={(event) => {setPlaintext(event.target.value)}}></input>
+                    <input className="border-2 m-6" value={shift} placeholder="shift" onChange={(event) => {modifyShift(event.target.value)}}></input>
+                </div>
+                <p>ignore case: {String(ignoreCase)}</p>
+                <button onClick={() => {setIgnoreCase(!ignoreCase)}}>case</button>
+                <p className="p-5">{output}</p>
+            </div>
         </div>
     );
 }
