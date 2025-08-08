@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import encryptCaesar from "../algorithms/caesar";
+import './Caesar.css'
 
 const Caesar = () => {
-    const [ plaintext, setPlaintext ] = useState("Enter your message here!");
+    const [ plaintext, setPlaintext ] = useState("Encrypt your message here!");
     const [ shift, setShift ] = useState("-3");
     const [ output, setOutput ] = useState("");
     const [ ignoreForeign, setIgnoreForeign ] = useState(false);
@@ -48,26 +49,34 @@ const Caesar = () => {
     }, [ plaintext, shift, ignoreForeign ]);
 
     return (
-        <div>
-            <h1 className="font-bold text-2xl">Caesar Cipher</h1>
-            <div className="bg-blue-300">
-                <div className="w-screen bg-blue-500 flex justify-center">
-                    <input className="border-2 m-4" value={shift} placeholder="shift" onChange={(event) => {modifyShift(event.target.value)}}/>
-                    <div className="m-4">
-                        <label>
-                            Ignore foreign characters
-                            <input className="border-2" type="checkbox" checked={ignoreForeign} onChange={() => {setIgnoreForeign(!ignoreForeign)}}/>
-                            
-                        </label>
+        <>
+            <div className="bg-slate-300 mx-10 h-screen flex flex-col">
+                <div className="h-20 w-full bg-black"></div>
+                <div className="h-25 px-15 w-full flex items-center">
+                    <h1 className="font-extrabold text-3xl">Caesar Cipher</h1>
+                </div>
+                <div className="px-15 h-20 bg-slate-400 flex justify-left">
+                    <div className="flex flex-row items-center">
+                        <p className="mr-2">Shift:</p>
+                        <input className="box-border px-1 border-3 rounded-md w-15 border-slate-600 bg-slate-500" value={shift} onChange={(event) => {modifyShift(event.target.value)}}/>
+                    </div>
+                    <div className="m-5">
+                        <input type="checkbox" checked={ignoreForeign} onChange={() => {setIgnoreForeign(!ignoreForeign)}}/>
                     </div>
                 </div>
-                <div className="flex justify-center bg-blue-400">
-                    <textarea className="w-xl h-28 border-2 m-6 resize-none outline-none" value={plaintext} placeholder="plaintext" onFocus={(event) => {event.target.select()}} onChange={(event) => {setPlaintext(event.target.value)}}/>
-                    <p className="w-xl h-28 border-2 m-6">{output}</p>
+                <div className="px-15 py-5 h-full flex justify-center bg-slate-300">
+                    <textarea className="w-1/2 h-full box-border p-2 bg-slate-500 border-slate-600 border-3 rounded-md resize-none outline-none"
+                        value={plaintext} onFocus={(event) => {event.target.select()}} onChange={(event) => {setPlaintext(event.target.value)}}/>
+                    <div className="w-20 flex justify-center items-center">
+                        <div className="triangle-right"></div>
+                    </div>
+                    <p className="w-1/2 h-full box-border p-2 bg-slate-500 border-slate-600 border-3 rounded-md ">{output}</p>
                 </div>
-                
+                <div className="h-10 w-full bg-slate-400 flex justify-center items-center">
+                    <p>Read more</p>
+                </div>
             </div>
-        </div>
+        </>
     );
 }
 

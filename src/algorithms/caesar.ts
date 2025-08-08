@@ -1,9 +1,3 @@
-/*
-TODO:
-- Implement "ignore case" functionality
-- Add customizable alphabet (?)
-*/
-
 const alphabet = "abcdefghijklmnopqrstuvwxyz";
 
 const encryptCaesar = (message: string, shift: number, ignoreForeign: boolean) => {

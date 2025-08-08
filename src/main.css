@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
-body {
-    background-color: gray;
+:root {
+    font-family: "Roboto";
+    font-weight: 500;
+    color: var(--color-slate-800);
+    background-color: var(--color-slate-200);
 }

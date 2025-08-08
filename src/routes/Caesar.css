@@ -1,0 +1,7 @@
+.triangle-right {
+    width: 0;
+	height: 0;
+	border-top: 3rem solid transparent;
+	border-left: 2.25rem solid var(--color-slate-400);
+	border-bottom: 3rem solid transparent;
+}
